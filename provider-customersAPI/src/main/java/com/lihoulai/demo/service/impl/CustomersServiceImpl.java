@@ -2,6 +2,7 @@ package com.lihoulai.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lihoulai.demo.entity.Customers;
+import com.lihoulai.demo.exception.NotFundException;
 import com.lihoulai.demo.mapper.CustomersMapper;
 import com.lihoulai.demo.service.CustomersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,6 +35,8 @@ public class CustomersServiceImpl extends ServiceImpl<CustomersMapper, Customers
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("customer_id",id);
         Customers customer=customersMapper.selectOne(queryWrapper);
+        if(customer==null){throw new NotFundException("hi,we couldent find the customer of id "+id);
+        }
         return customer;
     }
 }
